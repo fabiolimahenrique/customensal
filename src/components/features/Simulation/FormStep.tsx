@@ -2,6 +2,7 @@ import { ArrowLeft, ArrowRight, type LucideIcon } from "lucide-react";
 import { Input, type InputProps } from "../../shered/Input";
 import { Button } from "../../shered/button";
 import { useState, type SyntheticEvent } from "react";
+import { formatCurrencyMask } from "../../../utils/currency";
 
 export interface FormStepProps {
   id: string;
@@ -17,7 +18,7 @@ export interface FormStepProps {
 
 interface ActionsButtonsProps {
   onBack: () => void;
-  onNext: () => void;
+  onNext: (value: string) => void
   hideBackButton?: boolean;
 }
 
@@ -39,7 +40,7 @@ export function FormStep({
       return;
     }
 
-    onNext();
+    onNext(inputValue);
   };
   return (
     <div className="bg-card rounded-2xl p-6 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.2)] sm:p-8">
@@ -56,7 +57,11 @@ export function FormStep({
         <Input
           {...inputProps}
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => setInputValue(
+            inputProps.prefix === 'R$'
+                ? formatCurrencyMask(e.target.value)
+                : e.target.value,
+          )}
         />
         <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
           {!hideBackButton && (

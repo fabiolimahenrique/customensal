@@ -92,3 +92,9 @@ export type SimulationFormData = Record<
   string
 >
 
+export type SimulationRecord = SimulationFormData & {
+  id: string
+  insight?: InsightData
+}
+
+
