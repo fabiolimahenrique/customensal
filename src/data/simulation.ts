@@ -9,6 +9,7 @@ import {
 
 
 import type { FormStepProps } from '../components/features/Simulation/FormStep'
+import type { InsightData } from '../services/aiService'
 
 export const simulationFormSteps = [
   {
